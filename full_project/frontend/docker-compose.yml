@@ -1,0 +1,23 @@
+version : '3'
+## Defining the containers
+services:
+  ## The first container is the web app container
+  web-app:
+    build : 
+      context : .
+      dockerfile : Dockerfile.dev
+    ports: 
+      - "20000:3000"
+    volumes:
+      - /app/node_modules
+      - .:/app
+    
+  ## The second container is the test container, will be used for running test cases.
+  tests:
+    build:
+      context : .
+      dockerfile : Dockerfile.dev
+    volumes:
+      - app/node_modules
+      - .:/app
+    command : ["npm", "run", "test"]
