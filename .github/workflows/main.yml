@@ -25,6 +25,6 @@ jobs:
       # Runs a single command using the runners shell
       - name: docker build fullproject
         run: |
-          docker build -f Dcokerfile.dev -t reactfullproject:1.0.0 ./full_project/frontend 
+          docker build -f Dockerfile.dev -t reactfullproject:1.0.0 ./full_project/frontend 
           docker run reactfullproject:1.0.0 npm run test -- --coverage
   
