@@ -22,9 +22,15 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      - name: Install dependencies
+        run: sudo apt install chromium-browser
       # Runs a single command using the runners shell
       - name: docker build fullproject
         run: |
+          export CHROME_BIN=/usr/bin/chromium-browser
           docker build -f ./full_project/frontend/Dockerfile.dev -t reactfullproject:1.0.0 ./full_project/frontend
-          docker run reactfullproject:1.0.0 npm run test -- --coverage
+          CI=true docker run reactfullproject:1.0.0 npm run test -- --coverage
+        env:
+            CI: true
   
